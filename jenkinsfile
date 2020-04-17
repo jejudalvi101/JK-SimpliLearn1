@@ -3,36 +3,19 @@ pipeline{
  environment {
     registry = "jejudalvi101/jenkinspipeline_dockerfile_image_build"
     registryCredential = 'dockerhub'
+    dockerImage = ''
   }
     agent any
         
     stages 
     {
-            stage('Build java application') 
-            {
-            
-                steps 
-                {
-                    echo 'Building..'
-                    sh 'mvn package'
-                }
-            }
-
-
-            stage('Cloning Git') {
-              steps {
-                git 'https://github.com/gustavoapolinario/microservices-node-example-todo-frontend.git'
-              }
-            }
 
          stage('Building Docker image') {
               steps{
-                script {
-                  docker.build registry + ":$BUILD_NUMBER"
+                script{
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
               }
          }
-
-
     }
 }
