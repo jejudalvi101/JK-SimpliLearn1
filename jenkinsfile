@@ -1,7 +1,7 @@
 pipeline{
 
  environment {
-    registry = "docker_hub_account/repository_name"
+    registry = "jejudalvi101/jenkinspipeline_dockerfile_image_build"
     registryCredential = 'dockerhub'
   }
     agent any
@@ -18,14 +18,11 @@ pipeline{
                 }
             }
 
-            stage('Test') 
-            {
-            
-                steps 
-                {
-                    echo 'Testing..'
-                    
-                }
+
+            stage('Cloning Git') {
+              steps {
+                git 'https://github.com/gustavoapolinario/microservices-node-example-todo-frontend.git'
+              }
             }
 
          stage('Building Docker image') {
